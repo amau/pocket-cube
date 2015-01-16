@@ -1,6 +1,7 @@
 
 package com.agutierrez.pocket;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,7 +40,25 @@ public class PocketCube
 		};
 		rubik = r;
 	}
+	
 
+	public void scramble()
+	{
+		Random random = new Random();
+		String aux;
+		
+		int numMoves = random.nextInt(10) + 10;
+		
+		String[] moves = {"F","R","U","B","L","D","F'","R'","U'","B'","L'","D'"};
+		
+		for(int i = 0; i < numMoves; i++)
+		{
+			aux = moves[random.nextInt(moves.length)];
+			//System.out.print(aux);
+			this.parseToken(aux);
+		}
+		//System.out.println("");
+	}
 
 	/*
 	 * ***UP*******DOWN*******LEFT*******FRONT*****RIGHT******BACK | 0|
@@ -204,8 +223,8 @@ public class PocketCube
 		int up = rubik[12];
 		int down = rubik[13];
 
-		rubik[12] = rubik[5];
-		rubik[13] = rubik[17];
+		rubik[12] = rubik[17];
+		rubik[13] = rubik[5];
 
 		rubik[5] = rubik[2];
 		rubik[17] = rubik[3];
@@ -235,8 +254,8 @@ public class PocketCube
 		rubik[2] = rubik[5];
 		rubik[3] = rubik[17];
 
-		rubik[5] = rubik[12];
-		rubik[17] = rubik[13];
+		rubik[5] = rubik[13];
+		rubik[17] = rubik[12];
 
 		rubik[12] = up;
 		rubik[13] = down;
@@ -259,11 +278,11 @@ public class PocketCube
 
 		rubik[6] = rubik[8];
 		rubik[7] = rubik[9];
-		
+
 		rubik[8] = rubik[10];
 		rubik[9] = rubik[11];
-		
-		rubik[10] = left; 
+
+		rubik[10] = left;
 		rubik[11] = right;
 
 		int aux = rubik[0];
@@ -284,11 +303,11 @@ public class PocketCube
 
 		rubik[8] = rubik[6];
 		rubik[9] = rubik[7];
-		
+
 		rubik[6] = rubik[4];
 		rubik[7] = rubik[5];
-		
-		rubik[4] = left; 
+
+		rubik[4] = left;
 		rubik[5] = right;
 
 		int aux = rubik[1];
@@ -309,11 +328,11 @@ public class PocketCube
 
 		rubik[22] = rubik[20];
 		rubik[23] = rubik[21];
-		
+
 		rubik[20] = rubik[18];
 		rubik[21] = rubik[19];
-		
-		rubik[18] = left; 
+
+		rubik[18] = left;
 		rubik[19] = right;
 
 		int aux = rubik[2];
@@ -334,11 +353,11 @@ public class PocketCube
 
 		rubik[20] = rubik[22];
 		rubik[21] = rubik[23];
-		
+
 		rubik[22] = rubik[16];
 		rubik[23] = rubik[17];
-		
-		rubik[16] = left; 
+
+		rubik[16] = left;
 		rubik[17] = right;
 
 		int aux = rubik[3];
@@ -532,9 +551,9 @@ public class PocketCube
 	public void printPocket()
 	{
 		System.out.print("    ");
-		System.out.println(  formatColor(rubik[0]) + formatColor(rubik[1]));
+		System.out.println(formatColor(rubik[0]) + formatColor(rubik[1]));
 		System.out.print("    ");
-		System.out.println(formatColor(rubik[12]) + formatColor(rubik[13]) );
+		System.out.println(formatColor(rubik[12]) + formatColor(rubik[13]));
 		System.out.print(formatColor(rubik[4]) + formatColor(rubik[5]));
 		System.out.print(formatColor(rubik[6]) + formatColor(rubik[7]));
 		System.out.print(formatColor(rubik[8]) + formatColor(rubik[9]));
@@ -605,7 +624,8 @@ public class PocketCube
 
 		return result;
 	}
-	
+
+
 	public String formatColor(int color)
 	{
 		String result = "";
@@ -637,8 +657,6 @@ public class PocketCube
 
 	public static void main(String args[])
 	{
-		System.out.println("Hello World of Pocket Cube!");
-
 		PocketCube p = new PocketCube();
 
 		p.printMap();
@@ -647,9 +665,19 @@ public class PocketCube
 		Scanner in = new Scanner(System.in);
 
 		String incoming = in.next();
-		while (!incoming.equals("Q"))
+		while (!incoming.equals("QUIT"))
 		{
-			p.applySequence(incoming);
+			if (incoming.equals("RESET"))
+			{
+				p = new PocketCube();
+			}else if (incoming.equals("SCRAMBLE"))
+			{
+				p.scramble();
+			}
+			else
+			{
+				p.applySequence(incoming);
+			}
 			p.printPocket();
 			incoming = in.next();
 		}
@@ -663,13 +691,19 @@ public class PocketCube
 	 * Regular expression that accepts valid moves for the Pocket Cube
 	 */
 	protected final String rubikPattern = "[DULRFB][2']?";
-	
+
 	public static final String ANSI_RESET = "\u001B[0m";
+
 	public static final String ANSI_RED = "\u001B[48;5;160m";
+
 	public static final String ANSI_GREEN = "\u001B[48;5;35m";
+
 	public static final String ANSI_YELLOW = "\u001B[48;5;226m";
+
 	public static final String ANSI_BLUE = "\u001B[48;5;26m";
+
 	public static final String ANSI_WHITE = "\u001B[48;5;255m";
+
 	public static final String ANSI_ORANGE = "\u001B[48;5;208m";
 
 	protected int[] rubik;
