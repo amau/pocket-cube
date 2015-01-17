@@ -1,8 +1,14 @@
 
 package com.agutierrez.pocket;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,32 +45,149 @@ public class PocketCube
 			6
 		};
 		rubik = r;
+		fixOrientation();
 	}
-	
+
+
+	public String toString()
+	{
+
+		String result = "";
+		for (int i = 0; i < rubik.length; i++)
+		{
+			result = result + rubik[i];
+		}
+
+		return result;
+	}
+
+
+	public int[] toArray(String rubik)
+	{
+		int[] array = new int[rubik.length()];
+
+		for (int i = 0; i < array.length; i++)
+		{
+			String number = rubik.substring(i,
+				i + 1);
+			array[i] = Integer.parseInt(number);
+		}
+		return array;
+	}
+
+
+	public boolean isSolved()
+	{
+		String[] SOLVED = { "446611332255446611332255",
+			"446655113322446655113322",
+			"446622551133446622551133",
+			"446633225511446633225511",
+			"221144336655221144336655",
+			"221155443366221155443366",
+			"221166554433221166554433",
+			"221133665544221133665544",
+			"664422331155664422331155",
+			"664455223311664455223311",
+			"664411552233664411552233",
+			"664433115522664433115522",
+			"112266334455112266334455",
+			"112255663344112255663344",
+			"112244556633112244556633",
+			"112233445566112233445566",
+			"553366114422553366114422",
+			"553322661144553322661144",
+			"553344226611553344226611",
+			"553311442266553311442266",
+			"335566224411335566224411",
+			"335511662244335511662244",
+			"335544116622335544116622",
+			"335522441166335522441166"
+		};
+
+		for (int i = 0; i < SOLVED.length; i++)
+		{
+			if (toString().equals(SOLVED[i]))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public void scramble()
 	{
 		Random random = new Random();
 		String aux;
-		
+
 		int numMoves = random.nextInt(10) + 10;
-		
-		String[] moves = {"F","R","U","B","L","D","F'","R'","U'","B'","L'","D'"};
-		
-		for(int i = 0; i < numMoves; i++)
+
+		for (int i = 0; i < numMoves; i++)
 		{
-			aux = moves[random.nextInt(moves.length)];
-			//System.out.print(aux);
+			aux = MOVES[random.nextInt(MOVES.length)];
+			// System.out.print(aux);
 			this.parseToken(aux);
 		}
-		//System.out.println("");
+		// System.out.println("");
 	}
+
 
 	/*
 	 * ***UP*******DOWN*******LEFT*******FRONT*****RIGHT******BACK | 0|
 	 * | 0| 1| | 2|| 3| | 4|| 5| | 6|| 7| | 8|| 9| |10||11| |12||13|
 	 * |14||15| |16||17| |18||19| |20||21| |22||23|
 	 */
+
+	public void setPosition(String string)
+	{
+		rubik = this.toArray(string);
+	}
+
+
+	public static String solve(PocketCube rubik)
+	{
+		Map<String, String> positions = new HashMap<String, String>();
+		Queue<String> queue = new LinkedList<String>();
+		String pos;
+		String newPos;
+		String algorithm;
+
+		rubik.fixOrientation();
+		PocketCube copy = new PocketCube();
+
+		copy.setPosition(rubik.toString());
+
+		queue.offer(copy.toString());
+		positions.put(copy.toString(),
+			"");
+
+		while ((pos = queue.poll()) != null)
+		{
+			for (String move : MOVES)
+			{
+				copy = new PocketCube();
+				copy.setPosition(pos);
+				copy.fixOrientation();
+				copy.applySequence(move);
+				newPos = copy.toString();
+				algorithm = positions.get(pos) + move;
+				if (!positions.keySet().contains(newPos) &&
+					copy.validMoveWithOrientation())
+				{
+					positions.put(newPos,
+						positions.get(pos) + move);
+					queue.offer(newPos);
+
+					if (copy.isSolved())
+					{
+						return positions.get(newPos);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 
 	public void moveLeft()
 	{
@@ -592,7 +715,7 @@ public class PocketCube
 
 	public void applySequence(String sequence)
 	{
-		applySequence(this.rubikPattern,
+		applySequence(PocketCube.RUBIK_PATTERN,
 			sequence);
 	}
 
@@ -655,6 +778,22 @@ public class PocketCube
 	}
 
 
+	public void fixOrientation()
+	{
+		orientOne = rubik[0];
+		orientTwo = rubik[4];
+		orientThree = rubik[11];
+	}
+
+
+	public boolean validMoveWithOrientation()
+	{
+		return (orientOne == rubik[0]) &&
+			(orientTwo == rubik[4]) &&
+				(orientThree == rubik[11]);
+	}
+
+
 	public static void main(String args[])
 	{
 		PocketCube p = new PocketCube();
@@ -670,19 +809,41 @@ public class PocketCube
 			if (incoming.equals("RESET"))
 			{
 				p = new PocketCube();
-			}else if (incoming.equals("SCRAMBLE"))
+				p.printPocket();
+			}
+			else if (incoming.equals("SCRAMBLE"))
 			{
 				p.scramble();
+				p.printPocket();
+			}
+			else if (incoming.equals("SOLVE"))
+			{
+
+				String solution = PocketCube.solve(p);
+				
+				Pattern pattern = Pattern.compile(RUBIK_PATTERN);
+				Matcher matcher = pattern.matcher(solution);
+				while (matcher.find())
+				{
+					String move = matcher.group();
+					p.parseToken(move);
+					System.out.println(move);
+					p.printPocket();
+				}
+
 			}
 			else
 			{
 				p.applySequence(incoming);
+				p.printPocket();
+				if (p.isSolved())
+				{
+					System.out.println("SOLVED!");
+				}
 			}
-			p.printPocket();
 			incoming = in.next();
 		}
-
-		System.out.println("End!");
+		System.out.println("END!");
 		in.close();
 
 	}
@@ -690,7 +851,27 @@ public class PocketCube
 	/**
 	 * Regular expression that accepts valid moves for the Pocket Cube
 	 */
-	protected final String rubikPattern = "[DULRFB][2']?";
+	public static final String RUBIK_PATTERN = "[DULRFB][2']?";
+
+	public static final String[] MOVES = { "F",
+		"F'",
+		"F2",
+		"B",
+		"B'",
+		"B2",
+		"L",
+		"L'",
+		"L2",
+		"R",
+		"R'",
+		"R2",
+		"D",
+		"D'",
+		"D2",
+		"U",
+		"U'",
+		"U2"
+	};
 
 	public static final String ANSI_RESET = "\u001B[0m";
 
@@ -705,6 +886,12 @@ public class PocketCube
 	public static final String ANSI_WHITE = "\u001B[48;5;255m";
 
 	public static final String ANSI_ORANGE = "\u001B[48;5;208m";
+
+	protected int orientOne;
+
+	protected int orientTwo;
+
+	protected int orientThree;
 
 	protected int[] rubik;
 }
