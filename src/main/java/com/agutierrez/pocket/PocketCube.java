@@ -19,32 +19,7 @@ public class PocketCube
 	 */
 	public PocketCube()
 	{
-		int[] r = { 1,
-			1,
-			2,
-			2,
-			3,
-			3,
-			4,
-			4,
-			5,
-			5,
-			6,
-			6,
-			1,
-			1,
-			2,
-			2,
-			3,
-			3,
-			4,
-			4,
-			5,
-			5,
-			6,
-			6
-		};
-		rubik = r;
+		rubik = INITIAL;
 		fixOrientation();
 	}
 
@@ -792,14 +767,15 @@ public class PocketCube
 			(orientTwo == rubik[4]) &&
 				(orientThree == rubik[11]);
 	}
-
-
-	public static void main(String args[])
+	
+	public void reset()
 	{
-		PocketCube p = new PocketCube();
-
-		p.printMap();
-		p.printPocket();
+		
+	}
+	
+	public void gameLoop()
+	{
+		printPocket();
 
 		Scanner in = new Scanner(System.in);
 
@@ -808,35 +784,35 @@ public class PocketCube
 		{
 			if (incoming.equals("RESET"))
 			{
-				p = new PocketCube();
-				p.printPocket();
+				rubik = INITIAL;
+				printPocket();
 			}
 			else if (incoming.equals("SCRAMBLE"))
 			{
-				p.scramble();
-				p.printPocket();
+				scramble();
+				printPocket();
 			}
 			else if (incoming.equals("SOLVE"))
 			{
 
-				String solution = PocketCube.solve(p);
+				String solution = PocketCube.solve(this);
 				
 				Pattern pattern = Pattern.compile(RUBIK_PATTERN);
 				Matcher matcher = pattern.matcher(solution);
 				while (matcher.find())
 				{
 					String move = matcher.group();
-					p.parseToken(move);
+					parseToken(move);
 					System.out.println(move);
-					p.printPocket();
+					printPocket();
 				}
 
 			}
 			else
 			{
-				p.applySequence(incoming);
-				p.printPocket();
-				if (p.isSolved())
+				applySequence(incoming);
+				printPocket();
+				if (isSolved())
 				{
 					System.out.println("SOLVED!");
 				}
@@ -845,7 +821,14 @@ public class PocketCube
 		}
 		System.out.println("END!");
 		in.close();
+	}
 
+
+	public static void main(String args[])
+	{
+		PocketCube p = new PocketCube();
+		
+		p.gameLoop();
 	}
 
 	/**
@@ -873,6 +856,7 @@ public class PocketCube
 		"U2"
 	};
 
+	
 	public static final String ANSI_RESET = "\u001B[0m";
 
 	public static final String ANSI_RED = "\u001B[48;5;160m";
@@ -887,6 +871,32 @@ public class PocketCube
 
 	public static final String ANSI_ORANGE = "\u001B[48;5;208m";
 
+	protected static final int[] INITIAL = { 1,
+		1,
+		2,
+		2,
+		3,
+		3,
+		4,
+		4,
+		5,
+		5,
+		6,
+		6,
+		1,
+		1,
+		2,
+		2,
+		3,
+		3,
+		4,
+		4,
+		5,
+		5,
+		6,
+		6
+	};
+	
 	protected int orientOne;
 
 	protected int orientTwo;
