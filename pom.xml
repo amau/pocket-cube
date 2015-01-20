@@ -4,101 +4,12 @@
 	<groupId>com.agutierrez.pocket</groupId>
 	<artifactId>tsp-pocket-cube-application</artifactId>
 	<url>http://www.amaurygtz.com/pocket</url>
-	<name>Tom Sawyer Perspectives Java Tutorials Basic Application</name>
+	<name>Command Line Pocket Cube</name>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.tomsawyer.perspectives</groupId>
-			<artifactId>ts-gwt-perspectives-dev</artifactId>
-			<version>7.0.0-FACADE-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 	<build>
-		<finalName>pocket</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.7.0</version>
-				<configuration>
-					<logLevel>ERROR</logLevel>
-					<extraJvmArgs>-Xmx2560m -DDEBUG</extraJvmArgs>
-					<closureCompiler>true</closureCompiler>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<webResources>
-						<resource>
-							<directory>${basedir}/project</directory>
-							<targetPath>project</targetPath>
-							<filtering>true</filtering>
-						</resource>
-						<resource>
-							<directory>${basedir}/data</directory>
-							<targetPath>data</targetPath>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
-			<!--
-			<plugin>
-				<groupId>com.tomsawyer.licensing</groupId>
-				<artifactId>ts-maven-licensing-plugin</artifactId>
-				<version>1.0.0-FACADE-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<id>setup-licensing</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>setup</goal>
-						</goals>
-						<configuration>
-							<licenseServerURL>http://licensing.testing.tomsawyer.com:8993</licenseServerURL>
-							<licenseName>Tom Sawyer Software, Internal Applications, Tom Sawyer Version 7.0, Development Distribution</licenseName>
-						</configuration>
-					</execution>
-					<execution>
-						<id>deployer-licensing</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>deployer</goal>
-						</goals>
-						<configuration>
-							<developmentLicenseServerURL>http://licensing.testing.tomsawyer.com:8993/tslicenseserver</developmentLicenseServerURL>
-							<developmentLicenseName>Tom Sawyer Software, Internal Applications, Tom Sawyer Version 7.0, Development Distribution</developmentLicenseName>
-							<deploymentLicenseServerURL>http://licensing.testing.tomsawyer.com:8993/tslicenseserver</deploymentLicenseServerURL>
-							<deploymentLicenseName>Tom Sawyer Software, Internal Applications, Tom Sawyer Version 7.0, Deployment Distribution</deploymentLicenseName>
-							<output>target/output</output>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			 -->
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>		
-				<configuration>
-					<update>true</update>
-					<path>/NetworkEditor</path>
-					<url>http://96.126.98.33:8080/manager/text</url>
-					<server>linode</server>
-					<warFile>target/output/pocket.war</warFile>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
