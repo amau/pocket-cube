@@ -99,7 +99,7 @@ public class PocketCube
 
 		for (int i = 0; i < numMoves; i++)
 		{
-			aux = MOVES[random.nextInt(MOVES.length)];
+			aux = PocketCubeConstants.MOVES[random.nextInt(PocketCubeConstants.MOVES.length)];
 			// System.out.print(aux);
 			this.parseToken(aux);
 		}
@@ -127,23 +127,23 @@ public class PocketCube
 			lastMoves.endsWith("R'") ||
 			lastMoves.endsWith("R2"))
 		{
-			res = PocketCube.LAST_MOVE_R;
+			res = PocketCubeConstants.LAST_MOVE_R;
 		}
 		else if (lastMoves.endsWith("D") ||
 			lastMoves.endsWith("D'") ||
 			lastMoves.endsWith("D2"))
 		{
-			res = PocketCube.LAST_MOVE_D;
+			res = PocketCubeConstants.LAST_MOVE_D;
 		}
 		else if (lastMoves.endsWith("F") ||
 			lastMoves.endsWith("F'") ||
 			lastMoves.endsWith("F2"))
 		{
-			res = PocketCube.LAST_MOVE_F;
+			res = PocketCubeConstants.LAST_MOVE_F;
 		}
 		else
 		{
-			res = PocketCube.MOVES_GENERATOR_CORNER_UBL_FIXED;
+			res = PocketCubeConstants.MOVES_GENERATOR_CORNER_UBL_FIXED;
 		}
 
 		return res;
@@ -724,7 +724,7 @@ public class PocketCube
 
 	public void applySequence(String sequence)
 	{
-		applySequence(PocketCube.RUBIK_PATTERN,
+		applySequence(PocketCubeConstants.RUBIK_PATTERN,
 			sequence);
 	}
 
@@ -764,22 +764,22 @@ public class PocketCube
 		switch (color)
 		{
 			case 1:
-				result = ANSI_YELLOW + "  " + ANSI_RESET;
+				result = PocketCubeConstants.ANSI_YELLOW + "  " + PocketCubeConstants.ANSI_RESET;
 				break;
 			case 2:
-				result = ANSI_WHITE + "  " + ANSI_RESET;
+				result = PocketCubeConstants.ANSI_WHITE + "  " + PocketCubeConstants.ANSI_RESET;
 				break;
 			case 3:
-				result = ANSI_BLUE + "  " + ANSI_RESET;
+				result = PocketCubeConstants.ANSI_BLUE + "  " + PocketCubeConstants.ANSI_RESET;
 				break;
 			case 4:
-				result = ANSI_RED + "  " + ANSI_RESET;
+				result = PocketCubeConstants.ANSI_RED + "  " + PocketCubeConstants.ANSI_RESET;
 				break;
 			case 5:
-				result = ANSI_GREEN + "  " + ANSI_RESET;
+				result = PocketCubeConstants.ANSI_GREEN + "  " + PocketCubeConstants.ANSI_RESET;
 				break;
 			case 6:
-				result = ANSI_ORANGE + "  " + ANSI_RESET;
+				result = PocketCubeConstants.ANSI_ORANGE + "  " + PocketCubeConstants.ANSI_RESET;
 				break;
 		}
 
@@ -833,7 +833,7 @@ public class PocketCube
 
 				String solution = PocketCube.solve(this);
 
-				Pattern pattern = Pattern.compile(RUBIK_PATTERN);
+				Pattern pattern = Pattern.compile(PocketCubeConstants.RUBIK_PATTERN);
 				Matcher matcher = pattern.matcher(solution);
 				while (matcher.find())
 				{
@@ -867,84 +867,8 @@ public class PocketCube
 		p.gameLoop();
 	}
 
-	/**
-	 * Regular expression that accepts valid moves for the Pocket Cube
-	 */
-	public static final String RUBIK_PATTERN = "[DULRFB][2']?";
 
-	public static final String[] MOVES = { "F",
-		"F'",
-		"F2",
-		"B",
-		"B'",
-		"B2",
-		"L",
-		"L'",
-		"L2",
-		"R",
-		"R'",
-		"R2",
-		"D",
-		"D'",
-		"D2",
-		"U",
-		"U'",
-		"U2"
-	};
 
-	public static final String[] MOVES_GENERATOR_CORNER_UBL_FIXED = {
-		"F",
-		"F'",
-		"F2",
-		"R",
-		"R'",
-		"R2",
-		"D",
-		"D'",
-		"D2"
-	};
-
-	public static final String[] LAST_MOVE_R = {
-		"F",
-		"F'",
-		"F2",
-		"D",
-		"D'",
-		"D2"
-	};
-
-	public static final String[] LAST_MOVE_F = {
-
-		"R",
-		"R'",
-		"R2",
-		"D",
-		"D'",
-		"D2"
-	};
-
-	public static final String[] LAST_MOVE_D = {
-		"F",
-		"F'",
-		"F2",
-		"R",
-		"R'",
-		"R2"
-	};
-
-	public static final String ANSI_RESET = "\u001B[0m";
-
-	public static final String ANSI_RED = "\u001B[48;5;160m";
-
-	public static final String ANSI_GREEN = "\u001B[48;5;35m";
-
-	public static final String ANSI_YELLOW = "\u001B[48;5;226m";
-
-	public static final String ANSI_BLUE = "\u001B[48;5;26m";
-
-	public static final String ANSI_WHITE = "\u001B[48;5;255m";
-
-	public static final String ANSI_ORANGE = "\u001B[48;5;208m";
 
 	protected static final int[] INITIAL = { 1,
 		1,
