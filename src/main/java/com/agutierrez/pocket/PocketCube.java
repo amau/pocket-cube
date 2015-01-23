@@ -864,8 +864,6 @@ public class PocketCube
 	{
 		PocketCube p = new PocketCube();
 
-		p.printMap();
-
 		p.gameLoop();
 	}
 

@@ -4,11 +4,13 @@
 	<groupId>com.agutierrez.pocket</groupId>
 	<artifactId>tsp-pocket-cube-application</artifactId>
 	<url>http://www.amaurygtz.com/pocket</url>
-	<name>Command Line Pocket Cube</name>
+	<name>Tom Sawyer Perspectives Java Tutorials Basic Application</name>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
 
+
 	<build>
+		<finalName>pocket</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
