@@ -1,4 +1,3 @@
-
 package com.agutierrez.pocket;
 
 import java.util.HashMap;
@@ -99,7 +98,7 @@ public class PocketCube
 
 		for (int i = 0; i < numMoves; i++)
 		{
-			aux = PocketCubeConstants.MOVES[random.nextInt(PocketCubeConstants.MOVES.length)];
+			aux = PocketCubeConstants.HALF_TURN_METRIC_MOVES[random.nextInt(PocketCubeConstants.HALF_TURN_METRIC_MOVES.length)];
 			// System.out.print(aux);
 			this.parseToken(aux);
 		}
@@ -127,23 +126,23 @@ public class PocketCube
 			lastMoves.endsWith("R'") ||
 			lastMoves.endsWith("R2"))
 		{
-			res = PocketCubeConstants.LAST_MOVE_R;
+			res = PocketCubeConstants.HALF_TURN_GENERATOR_UBL_LAST_MOVE_R;
 		}
 		else if (lastMoves.endsWith("D") ||
 			lastMoves.endsWith("D'") ||
 			lastMoves.endsWith("D2"))
 		{
-			res = PocketCubeConstants.LAST_MOVE_D;
+			res = PocketCubeConstants.HALF_TURN_GENERATOR_UBL_LAST_MOVE_D;
 		}
 		else if (lastMoves.endsWith("F") ||
 			lastMoves.endsWith("F'") ||
 			lastMoves.endsWith("F2"))
 		{
-			res = PocketCubeConstants.LAST_MOVE_F;
+			res = PocketCubeConstants.HALF_TURN_GENERATOR_UBL_LAST_MOVE_F;
 		}
 		else
 		{
-			res = PocketCubeConstants.MOVES_GENERATOR_CORNER_UBL_FIXED;
+			res = PocketCubeConstants.HALF_TURN_GENERATOR_CORNER_UBL_FIXED;
 		}
 
 		return res;
