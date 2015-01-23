@@ -119,6 +119,37 @@ public class PocketCube
 	}
 
 
+	public static String[] getValidMoves(String lastMoves)
+	{
+		String[] res = null;
+
+		if (lastMoves.endsWith("R") ||
+			lastMoves.endsWith("R'") ||
+			lastMoves.endsWith("R2"))
+		{
+			res = PocketCube.LAST_MOVE_R;
+		}
+		else if (lastMoves.endsWith("D") ||
+			lastMoves.endsWith("D'") ||
+			lastMoves.endsWith("D2"))
+		{
+			res = PocketCube.LAST_MOVE_D;
+		}
+		else if (lastMoves.endsWith("F") ||
+			lastMoves.endsWith("F'") ||
+			lastMoves.endsWith("F2"))
+		{
+			res = PocketCube.LAST_MOVE_F;
+		}
+		else
+		{
+			res = PocketCube.MOVES_GENERATOR_CORNER_UBL_FIXED;
+		}
+
+		return res;
+	}
+
+
 	public static String solve(PocketCube rubik)
 	{
 		Map<String, String> positions = new HashMap<String, String>();
@@ -126,6 +157,7 @@ public class PocketCube
 		String pos;
 		String newPos;
 		String algorithm;
+		String[] validMoves;
 
 		rubik.fixOrientation();
 		PocketCube copy = new PocketCube();
@@ -138,7 +170,10 @@ public class PocketCube
 
 		while ((pos = queue.poll()) != null)
 		{
-			for (String move : MOVES)
+
+			algorithm = positions.get(pos);
+			validMoves = getValidMoves(algorithm);
+			for (String move : validMoves)
 			{
 				copy = new PocketCube();
 				copy.setPosition(pos);
@@ -146,8 +181,7 @@ public class PocketCube
 				copy.applySequence(move);
 				newPos = copy.toString();
 				algorithm = positions.get(pos) + move;
-				if (!positions.keySet().contains(newPos) &&
-					copy.validMoveWithOrientation())
+				if (!positions.keySet().contains(newPos))
 				{
 					positions.put(newPos,
 						positions.get(pos) + move);
@@ -765,14 +799,16 @@ public class PocketCube
 	{
 		return (orientOne == rubik[0]) &&
 			(orientTwo == rubik[4]) &&
-				(orientThree == rubik[11]);
+			(orientThree == rubik[11]);
 	}
-	
+
+
 	public void reset()
 	{
-		
+
 	}
-	
+
+
 	public void gameLoop()
 	{
 		printPocket();
@@ -796,7 +832,7 @@ public class PocketCube
 			{
 
 				String solution = PocketCube.solve(this);
-				
+
 				Pattern pattern = Pattern.compile(RUBIK_PATTERN);
 				Matcher matcher = pattern.matcher(solution);
 				while (matcher.find())
@@ -827,7 +863,9 @@ public class PocketCube
 	public static void main(String args[])
 	{
 		PocketCube p = new PocketCube();
-		
+
+		p.printMap();
+
 		p.gameLoop();
 	}
 
@@ -856,7 +894,46 @@ public class PocketCube
 		"U2"
 	};
 
-	
+	public static final String[] MOVES_GENERATOR_CORNER_UBL_FIXED = {
+		"F",
+		"F'",
+		"F2",
+		"R",
+		"R'",
+		"R2",
+		"D",
+		"D'",
+		"D2"
+	};
+
+	public static final String[] LAST_MOVE_R = {
+		"F",
+		"F'",
+		"F2",
+		"D",
+		"D'",
+		"D2"
+	};
+
+	public static final String[] LAST_MOVE_F = {
+
+		"R",
+		"R'",
+		"R2",
+		"D",
+		"D'",
+		"D2"
+	};
+
+	public static final String[] LAST_MOVE_D = {
+		"F",
+		"F'",
+		"F2",
+		"R",
+		"R'",
+		"R2"
+	};
+
 	public static final String ANSI_RESET = "\u001B[0m";
 
 	public static final String ANSI_RED = "\u001B[48;5;160m";
@@ -896,7 +973,7 @@ public class PocketCube
 		6,
 		6
 	};
-	
+
 	protected int orientOne;
 
 	protected int orientTwo;
