@@ -1,13 +1,7 @@
 package com.agutierrez.pocket;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +13,6 @@ public class PocketCube
 	public PocketCube()
 	{
 		rubik = INITIAL;
-		fixOrientation();
 	}
 
 
@@ -116,86 +109,6 @@ public class PocketCube
 	{
 		rubik = this.toArray(string);
 	}
-
-
-	public static String[] getValidMoves(String lastMoves)
-	{
-		String[] res = null;
-
-		if (lastMoves.endsWith("R") ||
-			lastMoves.endsWith("R'") ||
-			lastMoves.endsWith("R2"))
-		{
-			res = PocketCubeConstants.HALF_TURN_GENERATOR_UBL_LAST_MOVE_R;
-		}
-		else if (lastMoves.endsWith("D") ||
-			lastMoves.endsWith("D'") ||
-			lastMoves.endsWith("D2"))
-		{
-			res = PocketCubeConstants.HALF_TURN_GENERATOR_UBL_LAST_MOVE_D;
-		}
-		else if (lastMoves.endsWith("F") ||
-			lastMoves.endsWith("F'") ||
-			lastMoves.endsWith("F2"))
-		{
-			res = PocketCubeConstants.HALF_TURN_GENERATOR_UBL_LAST_MOVE_F;
-		}
-		else
-		{
-			res = PocketCubeConstants.HALF_TURN_GENERATOR_CORNER_UBL_FIXED;
-		}
-
-		return res;
-	}
-
-
-	public static String solve(PocketCube rubik)
-	{
-		Map<String, String> positions = new HashMap<String, String>();
-		Queue<String> queue = new LinkedList<String>();
-		String pos;
-		String newPos;
-		String algorithm;
-		String[] validMoves;
-
-		rubik.fixOrientation();
-		PocketCube copy = new PocketCube();
-
-		copy.setPosition(rubik.toString());
-
-		queue.offer(copy.toString());
-		positions.put(copy.toString(),
-			"");
-
-		while ((pos = queue.poll()) != null)
-		{
-
-			algorithm = positions.get(pos);
-			validMoves = getValidMoves(algorithm);
-			for (String move : validMoves)
-			{
-				copy = new PocketCube();
-				copy.setPosition(pos);
-				copy.fixOrientation();
-				copy.applySequence(move);
-				newPos = copy.toString();
-				algorithm = positions.get(pos) + move;
-				if (!positions.keySet().contains(newPos))
-				{
-					positions.put(newPos,
-						positions.get(pos) + move);
-					queue.offer(newPos);
-
-					if (copy.isSolved())
-					{
-						return positions.get(newPos);
-					}
-				}
-			}
-		}
-		return null;
-	}
-
 
 	public void moveLeft()
 	{
@@ -786,22 +699,6 @@ public class PocketCube
 	}
 
 
-	public void fixOrientation()
-	{
-		orientOne = rubik[0];
-		orientTwo = rubik[4];
-		orientThree = rubik[11];
-	}
-
-
-	public boolean validMoveWithOrientation()
-	{
-		return (orientOne == rubik[0]) &&
-			(orientTwo == rubik[4]) &&
-			(orientThree == rubik[11]);
-	}
-
-
 	public void reset()
 	{
 
@@ -830,7 +727,7 @@ public class PocketCube
 			else if (incoming.equals("SOLVE"))
 			{
 
-				String solution = PocketCube.solve(this);
+				String solution = Solver.solve(this);
 
 				Pattern pattern = Pattern.compile(PocketCubeConstants.RUBIK_PATTERN);
 				Matcher matcher = pattern.matcher(solution);
@@ -858,17 +755,6 @@ public class PocketCube
 		in.close();
 	}
 
-
-	public static void main(String args[])
-	{
-		PocketCube p = new PocketCube();
-
-		p.gameLoop();
-	}
-
-
-
-
 	protected static final int[] INITIAL = { 1,
 		1,
 		2,
@@ -894,12 +780,5 @@ public class PocketCube
 		6,
 		6
 	};
-
-	protected int orientOne;
-
-	protected int orientTwo;
-
-	protected int orientThree;
-
 	protected int[] rubik;
 }
