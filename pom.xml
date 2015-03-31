@@ -24,7 +24,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>com.agutierrez.pocket.PocketCube</mainClass>
+					<mainClass>com.agutierrez.pocket.Main</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
