@@ -204,7 +204,174 @@ public class PocketCubeConstants
 		"R'",
 		"R2"
 	};
+	
+	/**
+	 * Up Front Right corner.
+	 */
+	public static final int[] UFR_INDEXES = {
+		13,
+		7,
+		8
+	}
+	
+	/**
+	 * Up Right Back corner.
+	 */
+	public static final int[] URB_INDEXES = {
+		1,
+		9,
+		10
+	}
+	
+	/**
+	 * Up Back Left corner.
+	 */
+	public static final int[] UBL_INDEXES = {
+		0,
+		11,
+		4
+	}
+	
+	/**
+	 * Up Left Front corner.
+	 */
+	public static final int[] ULF_INDEXES = {
+		12,
+		5,
+		6
+	}
+	
+	/**
+	 * Down Right Front corner.
+	 */
+	public static final int[] DRF_INDEXES = {
+		3,
+		20,
+		19
+	}
+	
+	/**
+	 * Down Front Left corner.
+	 */
+	public static final int[] DFL_INDEXES = {
+		2,
+		18,
+		17
+	}
+	
+	/**
+	 * Down Left Back corner.
+	 */
+	public static final int[] DLB_INDEXES = {
+		14,
+		16,
+		23
+	}
+	
+	/**
+	 * Down Back Right corner.
+	 */
+	public static final int[] DBR_INDEXES = {
+		15,
+		22,
+		21
+	}
 
+	/**
+	 * Up Front Right corner offset.
+	 */
+	public static final int[] UFR = 0;
+
+	/**
+	 * Up Right Back corner offset.
+	 */
+	public static final int[] URB = 5;
+
+	/**
+	 * Up Back Left corner offset.
+	 */
+	public static final int[] UBL = 10;
+
+	/**
+	 * Up Left Front corner offset.
+	 */
+	public static final int[] ULF = 15;
+
+	/**
+	 * Down Right Front corner offset.
+	 */
+	public static final int[] DRF = 20;	
+
+	/**
+	 * Down Front Left corner offset.
+	 */
+	public static final int[] DFL = 25;
+
+	/**
+	 * Down Left Back corner offset.
+	 */
+	public static final int[] DLB = 30;
+	
+	/**
+	 * Down Back Right corner offset.
+	 */
+	public static final int[] DBR = 35;	
+	
+	/**
+	 * Up Front Right corner bit mask.
+	 */
+	public static final int[] UFR = 0;
+
+	/**
+	 * Up Right Back corner bit mask.
+	 */
+	public static final int[] URB = 1;
+
+	/**
+	 * Up Back Left corner bit mask.
+	 */
+	public static final int[] UBL = 3;
+
+	/**
+	 * Up Left Front corner bit mask.
+	 */
+	public static final int[] ULF = 2;
+
+	/**
+	 * Down Right Front corner bit mask.
+	 */
+	public static final int[] DRF = 4;	
+
+	/**
+	 * Down Front Left corner bit mask.
+	 */
+	public static final int[] DFL = 6;
+
+	/**
+	 * Down Left Back corner bit mask.
+	 */
+	public static final int[] DLB = 7;
+	
+	/**
+	 * Down Back Right corner bit mask.
+	 */
+	public static final int[] DBR = 5;
+	
+	/**
+	 * Correct orientation.
+	 */
+	public static final int NEEDS_ZERO_CLOCKWISE = 0;
+	
+	/**
+	 * Correct orientation.
+	 */
+	public static final int NEEDS_ONE_CLOCKWISE = 1;
+	
+	/**
+	 * Correct orientation.
+	 */
+	public static final int NEEDS_TWO_CLOCKWISE = 2;
+	
 	/**
 	 * ASNI code to get color back to default.
 	 */
