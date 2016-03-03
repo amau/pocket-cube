@@ -8,6 +8,11 @@ import java.util.Queue;
 
 public class Solver
 {
+	/**
+	 * Given the last move, this method determines which are the valid moves to
+	 * do next, in order not to fall into innecessary loops. If we don't do this
+	 * we will search for branches that lead nowhere.
+	 */
 	public static String[] getValidMoves(String lastMoves)
 	{
 		String[] res = null;
@@ -38,7 +43,17 @@ public class Solver
 		return res;
 	}
 
-
+	/**
+	 * This method will look for a solution to the given state of the Pocket
+	 * Cube. This will acomplish its job using a queue to push new states of the
+	 * puzzle and using a hash map to keep track of the positions already
+	 * visited. The hash map key is the representation of a state of the puzzle
+	 * and the value is the steps that lead to that position from the starting
+	 * one. If the given position is feasible, it is guaranteed that the target
+	 * will be reached. By constraining the moves depending on the last move we
+	 * do a more efficient search than the naive approach of expanding every
+	 * single node.
+	 */
 	public static String solve(PocketCube rubik)
 	{
 		Map<String, String> positions = new HashMap<String, String>();
@@ -76,6 +91,7 @@ public class Solver
 
 					if (copy.isSolved())
 					{
+						// The target position has been reached.
 						return positions.get(newPos);
 					}
 				}
