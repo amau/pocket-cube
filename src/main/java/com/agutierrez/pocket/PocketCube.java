@@ -612,8 +612,10 @@ public class PocketCube
 		System.out.println(formatColor(rubik[14]) + formatColor(rubik[15]));
 	}
 
-
-	public void printMap()
+	/**
+	 * Prints a String representation of the pocket cube.
+	 */
+	public static void printMap()
 	{
 		System.out.print("       ");
 		System.out.println("| 0| 1|");
@@ -669,7 +671,14 @@ public class PocketCube
 		return result;
 	}
 
-
+	/**
+	 * This method creates a String containing space the given color as
+	 * background.
+	 * 
+	 * @param color
+	 *            The color of the output space.
+	 * @return String Space with the given color as background.
+	 */
 	public String formatColor(int color)
 	{
 		String result = "";
