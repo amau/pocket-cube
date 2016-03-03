@@ -42,7 +42,11 @@ public class PocketCube
 		return array;
 	}
 
-
+	/**
+	 * Convenience method that determines if the Pocket Cube state that this
+	 * instance represents is in its solved state. The array contains all the
+	 * solved positions when the cube orientation is not taken into account.
+	 */
 	public boolean isSolved()
 	{
 		String[] SOLVED = { "446611332255446611332255",
@@ -81,7 +85,10 @@ public class PocketCube
 		return false;
 	}
 
-
+	/**
+	 * Applies a random number (between 10 inclusive and 20 exclusive) of random
+	 * moves to the cube to get to a scrambled state.
+	 */
 	public void scramble()
 	{
 		Random random = new Random();
@@ -92,10 +99,8 @@ public class PocketCube
 		for (int i = 0; i < numMoves; i++)
 		{
 			aux = PocketCubeConstants.HALF_TURN_METRIC_MOVES[random.nextInt(PocketCubeConstants.HALF_TURN_METRIC_MOVES.length)];
-			// System.out.print(aux);
 			this.parseToken(aux);
 		}
-		// System.out.println("");
 	}
 
 
@@ -109,7 +114,11 @@ public class PocketCube
 	{
 		rubik = this.toArray(string);
 	}
-
+	
+	/**
+	 * Mapping of a clockwise turn of the left face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveLeft()
 	{
 		int up = rubik[0];
@@ -134,7 +143,10 @@ public class PocketCube
 		rubik[5] = aux;
 	}
 
-
+	/**
+	 * Mapping of a counterclockwise turn of the left face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveCounterLeft()
 	{
 
@@ -160,7 +172,10 @@ public class PocketCube
 		rubik[4] = aux;
 	}
 
-
+	/**
+	 * Mapping of a clockwise turn of the right face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveRight()
 	{
 		int up = rubik[7];
@@ -185,7 +200,10 @@ public class PocketCube
 		rubik[8] = aux;
 	}
 
-
+	/**
+	 * Mapping of a counterclockwise turn of the right face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveCounterRight()
 	{
 		int up = rubik[1];
@@ -210,7 +228,10 @@ public class PocketCube
 		rubik[20] = aux;
 	}
 
-
+	/**
+	 * Mapping of a clockwise turn of the back face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveBack()
 	{
 		int up = rubik[0];
@@ -236,7 +257,10 @@ public class PocketCube
 
 	}
 
-
+	/**
+	 * Mapping of a counterclockwise turn of the back face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveCounterBack()
 	{
 		int up = rubik[16];
@@ -261,7 +285,10 @@ public class PocketCube
 		rubik[10] = aux;
 	}
 
-
+	/**
+	 * Mapping of a clockwise turn of the front face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveFront()
 	{
 		int up = rubik[12];
@@ -286,7 +313,10 @@ public class PocketCube
 		rubik[7] = aux;
 	}
 
-
+	/**
+	 * Mapping of a counterclockwise turn of the front face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveCounterFront()
 	{
 		int up = rubik[8];
@@ -311,7 +341,10 @@ public class PocketCube
 		rubik[6] = aux;
 	}
 
-
+	/**
+	 * Mapping of a clockwise turn of the top face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveUp()
 	{
 		int left = rubik[4];
@@ -336,7 +369,10 @@ public class PocketCube
 		rubik[1] = aux;
 	}
 
-
+	/**
+	 * Mapping of a counterclockwise turn of the top face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveCounterUp()
 	{
 		int left = rubik[10];
@@ -361,7 +397,10 @@ public class PocketCube
 		rubik[0] = aux;
 	}
 
-
+	/**
+	 * Mapping of a clockwise turn of the bottom face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveDown()
 	{
 		int left = rubik[16];
@@ -386,7 +425,10 @@ public class PocketCube
 		rubik[3] = aux;
 	}
 
-
+	/**
+	 * Mapping of a counterclockwise turn of the bottom face of the Pocket Cube
+	 * represented by this instancee.
+	 */
 	public void moveCounterDown()
 	{
 		int left = rubik[18];
@@ -411,7 +453,10 @@ public class PocketCube
 		rubik[2] = aux;
 	}
 
-
+	/**
+	 * Parses a token into the set of moves that it represents. It then calls
+	 * the move represented.
+	 */
 	public void parseToken(String token)
 	{
 		if (token.equals("D"))
@@ -511,7 +556,11 @@ public class PocketCube
 		}
 	}
 
-
+	/**
+	 * Convenience method that returns the token that would cancel a given move.
+	 * Concatenating both moves would result in the identity move algebraically
+	 * speaking.
+	 */
 	public String getOposite(String token)
 	{
 		String result = "";
@@ -591,7 +640,9 @@ public class PocketCube
 		return result;
 	}
 
-
+	/**
+	 * Prints a pretty representation of the pocket cube to the terminal.
+	 */
 	public void printPocket()
 	{
 		System.out.print("    ");
@@ -635,14 +686,20 @@ public class PocketCube
 		System.out.println("|14|15|");
 	}
 
-
+	/**
+	 * Method overload to make calls simpler when we want to solve the Pocket
+	 * Cube to the theoretical solved state.
+	 */
 	public void applySequence(String sequence)
 	{
 		applySequence(PocketCubeConstants.RUBIK_PATTERN,
 			sequence);
 	}
 
-
+	/**
+	 * Using regular expresions, this method consumes a string calling the move
+	 * that each token represents one by one.
+	 */
 	protected void applySequence(String stringPattern,
 		String sequence)
 	{
