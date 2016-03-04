@@ -763,12 +763,102 @@ public class PocketCube
 
 		return result;
 	}
-
-	public static int toFactoradic(int decimal)
+	
+	/**
+	 * Converts a decimal number to ternary.
+	 * 
+	 * @param decimal
+	 *            The number to be converted.
+	 * @return The ternary representation of the given number
+	 */
+	public static int toTernary(int decimal)
 	{
-		return 0;
+		return toBaseN(decimal, 3);
 	}
 
+	/**
+	 * Converts a decimal number to binary.
+	 * 
+	 * @param decimal
+	 *            The number to be converted.
+	 * @return The binary representation of the given number
+	 */
+	public static int toBinary(int decimal)
+	{
+		return toBaseN(decimal, 2);
+	}
+
+	/**
+	 * Converts the given decimal number into a representation in the given
+	 * base.
+	 * 
+	 * @param decimal
+	 *            The number to be converted.
+	 * @param base
+	 *            The target base.
+	 * @return The representation of the given decimal number in the given base.
+	 */
+	public static int toBaseN(int decimal, int base)
+	{
+		int remainder = 0;
+		int quotient = decimal;
+		int i = 0;
+		int result = 0;
+		while(quotient > 0)
+		{
+			remainder = quotient % base;
+			quotient = quotient / base;
+			result = result + pow(10, i) * remainder;
+			i++;
+		}
+		return result;
+	}
+
+	/**
+	 * Converts the given decimal number into its factoradic representation. The
+	 * factoradic number system is used to induce a natural order to the
+	 * permutations of a given set.
+	 * 
+	 * @param decimal Number to be converted.
+	 * @return The factoradic representation of the given number.
+	 */
+	public static int toFactoradic(int decimal)
+	{
+		int remainder = 0;
+		int quotient = decimal;
+		int i = 0;
+		int result = 0;
+		while(quotient > 0)
+		{
+			remainder = quotient % (i + 1);
+			quotient = quotient / (i + 1);
+			result = result + pow(10, i) * remainder;
+			i++;
+		}
+		return result;
+	}
+	
+	/**
+	 * Convenient method to calculate powers of integer numbers..
+	 * @param a Base number to be elevated to given power.
+	 * @param b Exponent
+	 * @return a^b
+	 */
+	public static int pow(int a, int b)
+	{
+		int result = 1;
+		for (int i = 0; i < b; i++) 
+		{
+		   result *= a;
+		}
+		return result;
+	}
+
+	/**
+	 * Recursively calculates the factorial of the given number.
+	 * @param n
+	 * @return n!
+	 */
 	public static int factorial(int n)
 	{
 		if(n == 0)
@@ -777,7 +867,7 @@ public class PocketCube
 		}
 		else if(n == 1)
 		{
-			return n;
+			return 1;
 		}
 		else
 		{
