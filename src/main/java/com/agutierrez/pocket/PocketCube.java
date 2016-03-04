@@ -1,5 +1,7 @@
 package com.agutierrez.pocket;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -873,6 +875,29 @@ public class PocketCube
 		{
 			return factorial(n -1) * n;
 		}
+	}
+	
+	public static int[] getNthPermutation(int index)
+	{
+		int factoradic = PocketCube.toFactoradic(index);
+		int length = String.valueOf(factoradic).length();
+		int [] arr = new int[length];
+		int [] result = new int[length];
+		List<Integer> numbers = new ArrayList<Integer>();
+
+		
+		for(int i = arr.length - 1; factoradic > 0; factoradic = factoradic / 10)
+		{
+			arr[i] = factoradic % 10;
+			numbers.add(new Integer(arr.length - (1 + i)));
+			i--;			
+		}
+		
+		for(int i = 0; i < arr.length; i++)
+		{
+			result[i] = numbers.remove(arr[i]).intValue();
+		}		
+		return result;
 	}
 
 	public void reset()
