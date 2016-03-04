@@ -212,7 +212,7 @@ public class PocketCubeConstants
 		13,
 		7,
 		8
-	}
+	};
 	
 	/**
 	 * Up Right Back corner.
@@ -221,7 +221,7 @@ public class PocketCubeConstants
 		1,
 		9,
 		10
-	}
+	};
 	
 	/**
 	 * Up Back Left corner.
@@ -230,7 +230,7 @@ public class PocketCubeConstants
 		0,
 		11,
 		4
-	}
+	};
 	
 	/**
 	 * Up Left Front corner.
@@ -239,7 +239,7 @@ public class PocketCubeConstants
 		12,
 		5,
 		6
-	}
+	};
 	
 	/**
 	 * Down Right Front corner.
@@ -248,7 +248,7 @@ public class PocketCubeConstants
 		3,
 		20,
 		19
-	}
+	};
 	
 	/**
 	 * Down Front Left corner.
@@ -257,7 +257,7 @@ public class PocketCubeConstants
 		2,
 		18,
 		17
-	}
+	};
 	
 	/**
 	 * Down Left Back corner.
@@ -266,7 +266,7 @@ public class PocketCubeConstants
 		14,
 		16,
 		23
-	}
+	};
 	
 	/**
 	 * Down Back Right corner.
@@ -275,87 +275,87 @@ public class PocketCubeConstants
 		15,
 		22,
 		21
-	}
+	};
 
 	/**
 	 * Up Front Right corner offset.
 	 */
-	public static final int[] UFR = 0;
+	public static final int UFR_OFFSET = 0;
 
 	/**
 	 * Up Right Back corner offset.
 	 */
-	public static final int[] URB = 5;
+	public static final int URB_OFFSET = 5;
 
 	/**
 	 * Up Back Left corner offset.
 	 */
-	public static final int[] UBL = 10;
+	public static final int UBL_OFFSET = 10;
 
 	/**
 	 * Up Left Front corner offset.
 	 */
-	public static final int[] ULF = 15;
+	public static final int ULF_OFFSET = 15;
 
 	/**
 	 * Down Right Front corner offset.
 	 */
-	public static final int[] DRF = 20;	
+	public static final int DRF_OFFSET = 20;	
 
 	/**
 	 * Down Front Left corner offset.
 	 */
-	public static final int[] DFL = 25;
+	public static final int DFL_OFFSET = 25;
 
 	/**
 	 * Down Left Back corner offset.
 	 */
-	public static final int[] DLB = 30;
+	public static final int DLB_OFFSET = 30;
 	
 	/**
 	 * Down Back Right corner offset.
 	 */
-	public static final int[] DBR = 35;	
+	public static final int DBR_OFFSET = 35;	
 	
 	/**
 	 * Up Front Right corner bit mask.
 	 */
-	public static final int[] UFR = 0;
+	public static final int UFR = 0;
 
 	/**
 	 * Up Right Back corner bit mask.
 	 */
-	public static final int[] URB = 1;
+	public static final int URB = 1;
 
 	/**
 	 * Up Back Left corner bit mask.
 	 */
-	public static final int[] UBL = 3;
+	public static final int UBL = 3;
 
 	/**
 	 * Up Left Front corner bit mask.
 	 */
-	public static final int[] ULF = 2;
+	public static final int ULF = 2;
 
 	/**
 	 * Down Right Front corner bit mask.
 	 */
-	public static final int[] DRF = 4;	
+	public static final int DRF = 4;	
 
 	/**
 	 * Down Front Left corner bit mask.
 	 */
-	public static final int[] DFL = 6;
+	public static final int DFL = 6;
 
 	/**
 	 * Down Left Back corner bit mask.
 	 */
-	public static final int[] DLB = 7;
+	public static final int DLB = 7;
 	
 	/**
 	 * Down Back Right corner bit mask.
 	 */
-	public static final int[] DBR = 5;
+	public static final int DBR = 5;
 	
 	/**
 	 * Correct orientation.
