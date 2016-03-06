@@ -51,32 +51,6 @@ public class PocketCube
 	 */
 	public boolean isSolved()
 	{
-		String[] SOLVED = { "446611332255446611332255",
-			"446655113322446655113322",
-			"446622551133446622551133",
-			"446633225511446633225511",
-			"221144336655221144336655",
-			"221155443366221155443366",
-			"221166554433221166554433",
-			"221133665544221133665544",
-			"664422331155664422331155",
-			"664455223311664455223311",
-			"664411552233664411552233",
-			"664433115522664433115522",
-			"112266334455112266334455",
-			"112255663344112255663344",
-			"112244556633112244556633",
-			"112233445566112233445566",
-			"553366114422553366114422",
-			"553322661144553322661144",
-			"553344226611553344226611",
-			"553311442266553311442266",
-			"335566224411335566224411",
-			"335511662244335511662244",
-			"335544116622335544116622",
-			"335522441166335522441166"
-		};
-
 		for (int i = 0; i < SOLVED.length; i++)
 		{
 			if (toString().equals(SOLVED[i]))
@@ -86,7 +60,83 @@ public class PocketCube
 		}
 		return false;
 	}
+	
+	public int getCubieIndex(int [] arr)
+	{
+		return getCubieIndex(arr, this.rubik, this.getTarget());
+	}
+	
+	
+	public int getCubieIndex(int [] arr, int[] current, String target)
+	{
+		int[] targetArray = new int[arr.length];
+		int[] currentArray = new int[arr.length];
+		
+		
+		for(int j = 0; j < currentArray.length; j++)
+		{
+			targetArray[j] = Integer.parseInt("" + target.charAt(arr[j]));
+		}
+		
+		
+	    int[] cubieArray;
+		for(int i = 0; i < PocketCubeConstants.FINAL_ORDER.length; i++)
+		{
+			cubieArray = PocketCubeConstants.FINAL_ORDER[i];
+			
+			for(int j = 0; j < currentArray.length; j++)
+			{
+				currentArray[j] = current[cubieArray[j]];
+			}
 
+			if(this.getOrientation(currentArray, targetArray) > -1)
+			{
+				System.out.println("Orientation: " + this.getOrientation(currentArray, targetArray));
+				return i;
+			}
+		
+		}
+		return -1;
+	}
+	
+	public int getOrientation(int[] current, int[] target)
+	{
+		for(int j = 0; j < current.length; j++)
+		{
+			if(current[0] == target[(0 + j) % 3] &&
+			   current[1] == target[(1 + j) % 3] &&
+			   current[2] == target[(2 + j) % 3])
+			{
+				return j;
+			}
+		}
+		
+		return -1;
+	}
+	
+	public String getTarget()
+	{
+		return getTarget(PocketCubeConstants.UBL_INDEXES, this.toString());
+	}
+
+	public String getTarget(int[] arr, String current)
+	{	
+		for (int i = 0; i < SOLVED.length; i++)
+		{
+			String target = "";
+			String currentString = "";
+			for(int j = 0; j < arr.length; j++)
+			{
+				target = target + SOLVED[i].charAt(arr[j]);
+				currentString = currentString + current.charAt(arr[j]);
+			}
+			if(target.compareTo(currentString) == 0)
+			{
+				return SOLVED[i];
+			}
+		}
+		return "";
+	}
 	/**
 	 * Applies a random number (between 10 inclusive and 20 exclusive) of random
 	 * moves to the cube to get to a scrambled state.
@@ -841,6 +891,22 @@ public class PocketCube
 	}
 	
 	/**
+	 * Converts the given decimal number into its factoradic representation. The
+	 * factoradic number system is used to induce a natural order to the
+	 * permutations of a given set.
+	 * 
+	 * @param decimal Number to be converted.
+	 * @return The factoradic representation of the given number.
+	 */
+	public static int fromFactoradic(int factoradic)
+	{
+
+		int result = 0;
+
+		return result;
+	}
+	
+	/**
 	 * Convenient method to calculate powers of integer numbers..
 	 * @param a Base number to be elevated to given power.
 	 * @param b Exponent
@@ -877,6 +943,15 @@ public class PocketCube
 		}
 	}
 	
+	/**
+	 * This method returns the nth permutation using the Lehmer code. The size
+	 * reflects the number of elements that the set has, the index is the nth
+	 * permutation.
+	 * 
+	 * @param index nth permutation
+	 * @param size Number of objects in the set.
+	 * @return An array containing the desired order of the elements.
+	 */
 	public static int[] getNthPermutation(int index, int size)
 	{
 		int factoradic = PocketCube.toFactoradic(index);
@@ -984,4 +1059,30 @@ public class PocketCube
 		6
 	};
 	protected int[] rubik;
+	
+	protected String[] SOLVED = { "446611332255446611332255",
+			"446655113322446655113322",
+			"446622551133446622551133",
+			"446633225511446633225511",
+			"221144336655221144336655",
+			"221155443366221155443366",
+			"221166554433221166554433",
+			"221133665544221133665544",
+			"664422331155664422331155",
+			"664455223311664455223311",
+			"664411552233664411552233",
+			"664433115522664433115522",
+			"112266334455112266334455",
+			"112255663344112255663344",
+			"112244556633112244556633",
+			"112233445566112233445566",
+			"553366114422553366114422",
+			"553322661144553322661144",
+			"553344226611553344226611",
+			"553311442266553311442266",
+			"335566224411335566224411",
+			"335511662244335511662244",
+			"335544116622335544116622",
+			"335522441166335522441166"
+		};
 }

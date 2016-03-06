@@ -9,10 +9,11 @@ public class Main
 	 */
 	public static void main(String args[]) 
 	{
-		//PocketCube p = new PocketCube();
+		PocketCube p = new PocketCube();
 
 		//p.gameLoop();
 
+		/**
 		int setSize = 4;
 		int count = 0;
 
@@ -23,6 +24,19 @@ public class Main
 		}
 		
 		System.out.println(count);
+		
+		**/
+		p.scramble();
+		System.out.println(p.toString());
+		System.out.println(p.getTarget());
+		
+		int index;
+		
+		for(int i = 0; i < PocketCubeConstants.FINAL_ORDER.length; i++)
+		{
+			index = p.getCubieIndex(PocketCubeConstants.FINAL_ORDER[i]);
+			System.out.println("Index: " + index);
+		}
 	}
 		
 	public static void print(int[] result)
