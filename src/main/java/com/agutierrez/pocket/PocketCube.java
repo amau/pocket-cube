@@ -877,20 +877,22 @@ public class PocketCube
 		}
 	}
 	
-	public static int[] getNthPermutation(int index)
+	public static int[] getNthPermutation(int index, int size)
 	{
 		int factoradic = PocketCube.toFactoradic(index);
-		int length = String.valueOf(factoradic).length();
-		int [] arr = new int[length];
-		int [] result = new int[length];
+		int [] arr = new int[size];
+		int [] result = new int[size];
 		List<Integer> numbers = new ArrayList<Integer>();
 
+		for(int i = 0; i < size; i++)
+		{
+			numbers.add(i);
+		}	
 		
 		for(int i = arr.length - 1; factoradic > 0; factoradic = factoradic / 10)
 		{
 			arr[i] = factoradic % 10;
-			numbers.add(new Integer(arr.length - (1 + i)));
-			i--;			
+			i--;
 		}
 		
 		for(int i = 0; i < arr.length; i++)

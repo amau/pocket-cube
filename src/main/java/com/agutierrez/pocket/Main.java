@@ -13,12 +13,12 @@ public class Main
 
 		//p.gameLoop();
 
-		int setSize = 5;
+		int setSize = 4;
 		int count = 0;
 
-		for(int i = 1; i < PocketCube.factorial(setSize); i++)
+		for(int i = 0; i < PocketCube.factorial(setSize); i++)
 		{
-			Main.print(PocketCube.getNthPermutation(i));
+			Main.print(PocketCube.getNthPermutation(i, setSize));
 			count++;
 		}
 		
