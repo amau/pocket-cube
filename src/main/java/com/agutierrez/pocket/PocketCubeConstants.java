@@ -277,6 +277,17 @@ public class PocketCubeConstants
 		21
 	};
 
+	public static final int[][] FINAL_ORDER = {
+			UBL_INDEXES,
+			ULF_INDEXES,
+			UFR_INDEXES,
+			URB_INDEXES,
+			DFL_INDEXES,
+			DLB_INDEXES,
+			DBR_INDEXES,
+			DRF_INDEXES
+	};
+	
 	/**
 	 * Up Front Right corner offset.
 	 */
