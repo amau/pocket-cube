@@ -26,6 +26,8 @@ public class Main
 		System.out.println(count);
 		
 		**/
+		
+		/**
 		p.scramble();
 		System.out.println(p.toString());
 		System.out.println(p.getTarget());
@@ -36,6 +38,18 @@ public class Main
 		{
 			index = p.getCubieIndex(PocketCubeConstants.FINAL_ORDER[i]);
 			System.out.println("Index: " + index);
+		}
+		**/
+		
+		for(int i = 0; i < 100; i++)
+		{
+		int example = i;
+		
+		int fact = Util.toTernary(example);
+		
+		int result = Util.fromTernary(fact);
+		
+		System.out.println(example + " -> " + fact + " -> " + result);
 		}
 	}
 		
