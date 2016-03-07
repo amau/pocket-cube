@@ -92,6 +92,7 @@ public class PocketCube
 			if(this.getOrientation(currentArray, targetArray) > -1)
 			{
 				System.out.println("Orientation: " + this.getOrientation(currentArray, targetArray));
+			
 				return i;
 			}
 		
@@ -112,6 +113,13 @@ public class PocketCube
 		}
 		
 		return -1;
+	}
+	
+	public int mapToInt(int permutation, int orientation)
+	{
+		int result = (permutation << 11) | orientation;
+		
+		return result;
 	}
 	
 	public String getTarget()

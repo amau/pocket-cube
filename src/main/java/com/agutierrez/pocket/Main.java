@@ -13,19 +13,19 @@ public class Main
 
 		//p.gameLoop();
 
-		/**
-		int setSize = 4;
+		
+		int setSize = 7;
 		int count = 0;
 
-		for(int i = 0; i < PocketCube.factorial(setSize); i++)
+		for(int i = 0; i < Util.factorial(setSize); i++)
 		{
-			Main.print(PocketCube.getNthPermutation(i, setSize));
+			Main.print(Util.getNthPermutation(i, setSize));
 			count++;
 		}
 		
 		System.out.println(count);
 		
-		**/
+		
 		
 		/**
 		p.scramble();
@@ -40,8 +40,9 @@ public class Main
 			System.out.println("Index: " + index);
 		}
 		**/
+		int total = 3;
 		
-		for(int i = 0; i < 100; i++)
+		for(int i = 0; i < total; i++)
 		{
 		int example = i;
 		
@@ -51,6 +52,8 @@ public class Main
 		
 		System.out.println(example + " -> " + fact + " -> " + result);
 		}
+		int example = (1<<11) - 1;
+		System.out.println(example);
 	}
 		
 	public static void print(int[] result)
