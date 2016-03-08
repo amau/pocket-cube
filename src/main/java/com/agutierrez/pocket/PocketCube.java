@@ -122,6 +122,18 @@ public class PocketCube
 		return result;
 	}
 	
+	public byte[] mapToByteArray(int permutation, int orientation)
+	{
+		byte[] result = new byte[3];
+		int toInt = mapToInt(permutation, orientation);
+		
+		result[0] = (byte) (toInt >> 16);
+		result[1] = (byte) (toInt >> 8);
+		result[2] = (byte) (toInt >> 0);
+		
+		return result;
+	}
+	
 	public String getTarget()
 	{
 		return getTarget(PocketCubeConstants.UBL_INDEXES, this.toString());

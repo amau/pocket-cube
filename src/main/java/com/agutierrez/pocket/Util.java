@@ -151,6 +151,11 @@ public class Util {
 		return result;
 	}
 	
+	public static int parseFactorial(String s)
+	{
+		return 0;
+	}
+	
 	/**
 	 * Convenient method to calculate powers of integer numbers..
 	 * @param a Base number to be elevated to given power.
