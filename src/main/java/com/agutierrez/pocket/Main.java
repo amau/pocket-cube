@@ -12,15 +12,24 @@ public class Main
 	/**
 	 * Main entry point of the game, creates the engine object and starts the
 	 * game loop.
+	 * @throws Exception 
 	 */
-	public static void main(String args[]) throws IOException
+	public static void main(String args[]) throws Exception
 	{
 		PocketCube p = new PocketCube();
 
 		
 		int test = p.mapToInt(5040,729);
 		
-		System.out.println(Integer.valueOf("F", 34));
+		
+		
+		
+		
+		
+		System.out.println(Character.digit("9".charAt(0), 9));
+		System.out.println(Util.fromFactoradic(2210));
+		System.out.println(Util.toString(17,8));
+		System.out.println(Util.parseFactorial("2210"));
 		System.out.println(Integer.toString(35, 36));
 		System.out.println("Test: " + test);
 		System.out.println("Test >> 11: " + (test>>11));
@@ -44,34 +53,43 @@ public class Main
 		**/
 		
 		
-		/**
+		
 		p.scramble();
 		System.out.println(p.toString());
 		System.out.println(p.getTarget());
 		
 		int index;
 		
+		String orientation = "";
+		String permutation = "";
 		for(int i = 0; i < PocketCubeConstants.FINAL_ORDER.length; i++)
 		{
 			index = p.getCubieIndex(PocketCubeConstants.FINAL_ORDER[i]);
-			System.out.println("Index: " + index);
+			permutation = permutation + index;
+			orientation = orientation + p.getCubieOrientation(index, PocketCubeConstants.FINAL_ORDER[i]);
+			
 		}
-		**/
+		System.out.println("Permutation: " + permutation);
+		index = Util.getPermutationIndex(p.toArray(permutation));
+		System.out.println("Orientation: " + orientation);
+		
+		System.out.println("Permutation Index: " + index);
+		System.out.println("Orientation Index: " + Integer.parseInt(orientation.substring(2), 3));
+		
+		
 		/**
-		int total = 3;
+		int total = 5040;
 		
 		for(int i = 0; i < total; i++)
 		{
 		int example = i;
 		
-		int fact = Util.toTernary(example);
+		String fact = Util.toString(example, 15);
 		
-		int result = Util.fromTernary(fact);
+		int result = Util.parseFactorial("" + fact);
 		
 		System.out.println(example + " -> " + fact + " -> " + result);
 		}
-		int example = (1<<11) - 1;
-		System.out.println(example);
 		**/
 	}
 		
