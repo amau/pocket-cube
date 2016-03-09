@@ -68,6 +68,11 @@ public class PocketCube
 	
 	
 	public int getCubieIndex(int [] arr, int[] current, String target)
+	{	
+		return getCubieIndex(arr, current, toArray(target));
+	}
+	
+	public int getCubieIndex(int [] arr, int[] current, int[] target)
 	{
 		int[] targetArray = new int[arr.length];
 		int[] currentArray = new int[arr.length];
@@ -75,7 +80,7 @@ public class PocketCube
 		
 		for(int j = 0; j < currentArray.length; j++)
 		{
-			targetArray[j] = Integer.parseInt("" + target.charAt(arr[j]));
+			targetArray[j] = target[arr[j]];
 		}
 		
 		
@@ -89,10 +94,8 @@ public class PocketCube
 				currentArray[j] = current[cubieArray[j]];
 			}
 
-			if(this.getOrientation(currentArray, targetArray) > -1)
+			if(this.isSameCubie(currentArray, targetArray) > -1)
 			{
-				System.out.println("Orientation: " + this.getOrientation(currentArray, targetArray));
-			
 				return i;
 			}
 		
@@ -100,7 +103,7 @@ public class PocketCube
 		return -1;
 	}
 	
-	public int getOrientation(int[] current, int[] target)
+	public int isSameCubie(int[] current, int[] target)
 	{
 		for(int j = 0; j < current.length; j++)
 		{
@@ -111,9 +114,33 @@ public class PocketCube
 				return j;
 			}
 		}
-		
 		return -1;
 	}
+	
+	public int getCubieOrientation(int index, int[] arr)
+	{
+		return getCubieOrientation(index, arr, this.rubik,  toArray(this.getTarget()));
+	}
+	
+	
+	public int getCubieOrientation(int index, int[] arr, int[] current, int[] target)
+	{
+		int[] targetArray = new int[arr.length];
+		int[] currentArray = new int[arr.length];
+		
+		int[] cubieArray = PocketCubeConstants.FINAL_ORDER[index];
+		
+		for(int j = 0; j < 3; j++)
+		{
+			currentArray[j] = current[cubieArray[j]];
+			targetArray[j] = target[arr[j]];
+		}
+		
+		
+		return this.isSameCubie(currentArray, targetArray);
+		
+	}
+	
 	
 	public int mapToInt(int permutation, int orientation)
 	{
