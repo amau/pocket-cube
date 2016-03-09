@@ -351,6 +351,33 @@ public class Util {
 		return result;
 	}
 	
+	public static int getPermutationIndex(int[] permutation) throws Exception
+	{
+		int[] aux = new int[permutation.length];
+		
+		String x = "";
+		for(int i = permutation.length -1; i > -1; i--)
+		{
+			int j = 0;
+			int auxInt = permutation[i];
+			int counter = 0;
+			
+			while(j < auxInt)
+			{
+				if(aux[j] > 0)
+				{
+					counter++;
+				}
+				j++;
+			}
+			aux[j] = auxInt;
+			
+			x = counter + x;
+			
+		}
+		return parseFactorial(x);
+	}
+	
     /**
      * All possible chars for representing a number as a String
      */
