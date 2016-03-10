@@ -144,9 +144,16 @@ public class PocketCube
 	
 	public int mapToInt(int permutation, int orientation)
 	{
-		int result = (permutation << 11) | orientation;
+		int result = (permutation << PocketCube.PERMUTATION_OFFSET) | (orientation << PocketCube.ORIENTATION_OFFSET);
 		
 		return result;
+	}
+	
+	public void mapFromInt(int position) 
+	{
+		int orientation = (PocketCube.ORIENTATION_MASK & position) >> PocketCube.ORIENTATION_OFFSET;
+		int permutation = (PocketCube.PERMUTATION_MASK & position) >> PocketCube.PERMUTATION_OFFSET;
+		System.out.println("(" + permutation + "," + orientation + ")");
 	}
 	
 	public byte[] mapToByteArray(int permutation, int orientation)
@@ -945,6 +952,11 @@ public class PocketCube
 		6
 	};
 	protected int[] rubik;
+	
+	protected static int PERMUTATION_OFFSET = 10;
+	protected static int ORIENTATION_OFFSET = 0;
+	protected static int ORIENTATION_MASK = 1023;
+	protected static int PERMUTATION_MASK = 8387584;
 	
 	protected String[] SOLVED = { "446611332255446611332255",
 			"446655113322446655113322",

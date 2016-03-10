@@ -37,7 +37,7 @@ public class Main
 		//p.gameLoop();
 
 		//write2(p);
-		System.out.println("End");
+		System.out.println("End: " +  Integer.toBinaryString(8387584));
 		/**
 		
 		int setSize = 7;
@@ -51,6 +51,8 @@ public class Main
 		
 		System.out.println(count);
 		**/
+		
+		//write3(p);
 		
 		
 		
@@ -76,6 +78,9 @@ public class Main
 		System.out.println("Permutation Index: " + index);
 		System.out.println("Orientation Index: " + Integer.parseInt(orientation.substring(2), 3));
 		
+		System.out.println("Remaining Orientation: " + getremainingOrientation(orientation.substring(2), 3));
+		
+
 		
 		/**
 		int total = 5040;
@@ -92,7 +97,18 @@ public class Main
 		}
 		**/
 	}
-		
+	
+	public static int getremainingOrientation(String orientation, int radix)
+	{
+		int count = 0;
+		for(int i = 0; i < orientation.length(); i++)
+		{
+			int digit = Character.digit(orientation.charAt(i), 10);
+			count += digit;
+		}
+		return (radix - count % radix) % radix;
+	}
+	
 	public static void print(int[] result)
 	{
 		System.out.print("(");
@@ -133,6 +149,24 @@ public class Main
         	for(int j = 0; j < 729; j++) 
         	{
         		out.write(p.mapToByteArray(i, j));
+        	}
+        }
+        
+        out.close();
+
+	}
+	
+	public static void write3(PocketCube p) throws IOException
+	{		
+		FileOutputStream out = new FileOutputStream("bytes.txt");
+        
+		
+		for(int i = 0; i < 5040; i++) 
+        {
+        	for(int j = 0; j < 729; j++) 
+        	{
+        		int integer = p.mapToInt(i, j);
+        		p.mapFromInt(integer);
         	}
         }
         
