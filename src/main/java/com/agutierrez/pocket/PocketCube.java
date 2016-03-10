@@ -142,24 +142,72 @@ public class PocketCube
 	}
 	
 	
-	public int mapToInt(int permutation, int orientation)
+	public int mapToInt()
 	{
+		int permutation;
+		int orientation;
+		
+		String orientationString = "";
+		String permutationString = "";
+		for(int i = 0; i < PocketCubeConstants.FINAL_ORDER.length; i++)
+		{
+			int index = getCubieIndex(PocketCubeConstants.FINAL_ORDER[i]);
+			permutationString = permutationString + index;
+			orientationString = orientationString + getCubieOrientation(index, PocketCubeConstants.FINAL_ORDER[i]);
+			
+		}
+		permutation = Util.getPermutationIndex(toArray(permutationString));
+		
+		orientation = Integer.parseInt(orientationString.substring(2), 3);
+		
 		int result = (permutation << PocketCube.PERMUTATION_OFFSET) | (orientation << PocketCube.ORIENTATION_OFFSET);
 		
 		return result;
 	}
 	
-	public void mapFromInt(int position) 
+	public String mapFromInt(int position, String target) throws Exception 
 	{
 		int orientation = (PocketCube.ORIENTATION_MASK & position) >> PocketCube.ORIENTATION_OFFSET;
 		int permutation = (PocketCube.PERMUTATION_MASK & position) >> PocketCube.PERMUTATION_OFFSET;
-		System.out.println("(" + permutation + "," + orientation + ")");
+	
+		
+
+		String perm = "0" + Util.getNthPermutationString(permutation, 7);
+		String orie = Integer.toString(orientation, 3);
+		
+		orie = "0" + Util.getremainingOrientation(orie, 3) + Util.padLeftZeros(orie, 6);
+		
+		
+		int[] newRubik = new int[rubik.length];
+		
+		int[] targetArray = toArray(target);
+		
+		for(int i = 0; i < CUBIES_NUMBER; i++)
+		{
+			int[] targetCubie = PocketCubeConstants.FINAL_ORDER[i];
+			char permChar = perm.charAt(i);
+			int permNumber = Character.digit(permChar, 10);
+			
+			int[] currentCubie = PocketCubeConstants.FINAL_ORDER[permNumber];
+			char orientChar = orie.charAt(i);
+			int orientNumber = Character.digit(orientChar, 10);
+			for(int j = 0; j < targetCubie.length; j++)
+			{
+				newRubik[currentCubie[j]] = targetArray[targetCubie[(j + orientNumber) % currentCubie.length]];
+			}
+		}
+		String result = "";
+		for(int k = 0 ; k < newRubik.length; k++)
+		{
+			result = result + newRubik[k];
+		}
+		return result;
 	}
 	
 	public byte[] mapToByteArray(int permutation, int orientation)
 	{
 		byte[] result = new byte[3];
-		int toInt = mapToInt(permutation, orientation);
+		int toInt = mapToInt();
 		
 		result[0] = (byte) (toInt >> 16);
 		result[1] = (byte) (toInt >> 8);
@@ -952,6 +1000,8 @@ public class PocketCube
 		6
 	};
 	protected int[] rubik;
+	
+	protected static final int CUBIES_NUMBER = 8;
 	
 	protected static int PERMUTATION_OFFSET = 10;
 	protected static int ORIENTATION_OFFSET = 0;

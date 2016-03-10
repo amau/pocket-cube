@@ -351,7 +351,33 @@ public class Util {
 		return result;
 	}
 	
-	public static int getPermutationIndex(int[] permutation) throws Exception
+	public static String getNthPermutationString(int index, int size)
+	{
+		int factoradic = toFactoradic(index);
+		int [] arr = new int[size];
+		String result = "";
+		List<Integer> numbers = new ArrayList<Integer>();
+
+		// 0 is already taken, this way we ensure that we don't repeat 0.
+		for(int i = 1; i < size + 1; i++)
+		{
+			numbers.add(i);
+		}	
+		
+		for(int i = arr.length - 1; factoradic > 0; factoradic = factoradic / 10)
+		{
+			arr[i] = factoradic % 10;
+			i--;
+		}
+		
+		for(int i = 0; i < arr.length; i++)
+		{
+			result = result + numbers.remove(arr[i]);
+		}		
+		return result;
+	}
+	
+	public static int getPermutationIndex(int[] permutation)
 	{
 		int[] aux = new int[permutation.length];
 		
@@ -375,7 +401,28 @@ public class Util {
 			x = counter + x;
 			
 		}
-		return parseFactorial(x);
+		int res = 0;
+		try
+		{
+			res = parseFactorial(x);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	public static String getremainingOrientation(String orientation, int radix)
+	{
+		int count = 0;
+		for(int i = 0; i < orientation.length(); i++)
+		{
+			int digit = Character.digit(orientation.charAt(i), 10);
+			count += digit;
+		}
+		return new String(digits, (radix - count % radix) % radix, 1);
 	}
 	
     /**

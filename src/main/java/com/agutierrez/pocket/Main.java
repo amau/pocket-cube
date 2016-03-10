@@ -19,7 +19,7 @@ public class Main
 		PocketCube p = new PocketCube();
 
 		
-		int test = p.mapToInt(5040,729);
+		int test = p.mapToInt();
 		
 		
 		
@@ -57,30 +57,15 @@ public class Main
 		
 		
 		p.scramble();
-		System.out.println(p.toString());
-		System.out.println(p.getTarget());
+		String before = p.toString();
+		System.out.println(before);
 		
-		int index;
+		System.out.println(p.mapToInt());
 		
-		String orientation = "";
-		String permutation = "";
-		for(int i = 0; i < PocketCubeConstants.FINAL_ORDER.length; i++)
-		{
-			index = p.getCubieIndex(PocketCubeConstants.FINAL_ORDER[i]);
-			permutation = permutation + index;
-			orientation = orientation + p.getCubieOrientation(index, PocketCubeConstants.FINAL_ORDER[i]);
-			
-		}
-		System.out.println("Permutation: " + permutation);
-		index = Util.getPermutationIndex(p.toArray(permutation));
-		System.out.println("Orientation: " + orientation);
+		String after = p.mapFromInt(p.mapToInt(), p.getTarget());
+		System.out.println(after);
 		
-		System.out.println("Permutation Index: " + index);
-		System.out.println("Orientation Index: " + Integer.parseInt(orientation.substring(2), 3));
-		
-		System.out.println("Remaining Orientation: " + getremainingOrientation(orientation.substring(2), 3));
-		
-
+		System.out.println(after.compareTo(before));
 		
 		/**
 		int total = 5040;
@@ -131,7 +116,7 @@ public class Main
         {
         	for(int j = 0; j < 729; j++) 
         	{
-        		bw.write(p.mapToInt(i, j));
+        		bw.write(p.mapToInt());
         		bw.newLine();
         	}
         }
@@ -156,7 +141,7 @@ public class Main
 
 	}
 	
-	public static void write3(PocketCube p) throws IOException
+	public static void write3(PocketCube p) throws Exception
 	{		
 		FileOutputStream out = new FileOutputStream("bytes.txt");
         
@@ -165,8 +150,8 @@ public class Main
         {
         	for(int j = 0; j < 729; j++) 
         	{
-        		int integer = p.mapToInt(i, j);
-        		p.mapFromInt(integer);
+        		int integer = p.mapToInt();
+        		//p.mapFromInt(integer, "");
         	}
         }
         
