@@ -82,7 +82,7 @@ public class SolutionsGenerator
 				copy.setPosition(pos);
 				copy.applySequence(move);
 				newPos = copy.toString();
-				algorithm = positions.get(pos) + move;
+				algorithm = positions.get(pos) + "A";
 				cont++;
 				if (!positions.keySet().contains(newPos))
 				{
@@ -101,50 +101,23 @@ public class SolutionsGenerator
 		System.out.println("Number of loops: " + cont);
 		System.out.println("Number of positions: " + posi);
 		System.out.println("Milliseconds elapsed: " + time);
-		// try
-		// {
-		// File file = new File("full.txt");
-		// BufferedWriter output = new BufferedWriter(new
-		// FileWriter(file));
-		//
-		// for (String position : positions.keySet())
-		// {
-		//
-		// output.write(position + "," + positions.get(position));
-		// output.newLine();
-		// }
-		//
-		// output.close();
-		// }
-		// catch (IOException e)
-		// {
-		// e.printStackTrace();
-		// }
-		//
-		// try
-		// {
-		// File file = new File("positionsonly.txt");
-		// BufferedWriter output = new BufferedWriter(new
-		// FileWriter(file));
-		//
-		// for (String position : positions.keySet())
-		// {
-		//
-		// output.write(position + ",");
-		//
-		// }
-		//
-		// output.close();
-		// }
-		// catch (IOException e)
-		// {
-		// e.printStackTrace();
-		// }
-		//
-		// for (String position : positions.keySet())
-		// {
-		// System.out.println(position + "," + positions.get(position));
-		// }
+		try {
+			PocketCube newPocket = new PocketCube();
+			File file = new File("compactest.txt");
+			BufferedWriter output = new BufferedWriter(new FileWriter(file));
+
+			for (String position : positions.keySet()) {
+
+				newPocket.setPosition(position);
+				output.write(newPocket.mapToInt() + " " + positions.get(position) + " " + positions.get(position).length());
+				output.newLine();
+			}
+
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 
 	}
 
