@@ -14,6 +14,11 @@ public class PocketCube
 	 */
 	public PocketCube()
 	{
+		init();
+	}
+	
+	public void init()
+	{
 		rubik = INITIAL;
 	}
 
@@ -263,7 +268,12 @@ public class PocketCube
 	 * | 0| 1| | 2|| 3| | 4|| 5| | 6|| 7| | 8|| 9| |10||11| |12||13|
 	 * |14||15| |16||17| |18||19| |20||21| |22||23|
 	 */
-
+	/**
+	 * This method takes a string representing the pocket cube and sets the
+	 * current position of this object to it.
+	 * 
+	 * @param string The string representing the pocket cube.
+	 */
 	public void setPosition(String string)
 	{
 		rubik = this.toArray(string);
@@ -271,7 +281,7 @@ public class PocketCube
 	
 	/**
 	 * Mapping of a clockwise turn of the left face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveLeft()
 	{
@@ -299,7 +309,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a counterclockwise turn of the left face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveCounterLeft()
 	{
@@ -328,7 +338,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a clockwise turn of the right face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveRight()
 	{
@@ -356,7 +366,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a counterclockwise turn of the right face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveCounterRight()
 	{
@@ -384,7 +394,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a clockwise turn of the back face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveBack()
 	{
@@ -413,7 +423,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a counterclockwise turn of the back face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveCounterBack()
 	{
@@ -441,7 +451,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a clockwise turn of the front face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveFront()
 	{
@@ -469,7 +479,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a counterclockwise turn of the front face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveCounterFront()
 	{
@@ -497,7 +507,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a clockwise turn of the top face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveUp()
 	{
@@ -525,7 +535,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a counterclockwise turn of the top face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveCounterUp()
 	{
@@ -553,7 +563,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a clockwise turn of the bottom face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveDown()
 	{
@@ -581,7 +591,7 @@ public class PocketCube
 
 	/**
 	 * Mapping of a counterclockwise turn of the bottom face of the Pocket Cube
-	 * represented by this instancee.
+	 * represented by this instance.
 	 */
 	public void moveCounterDown()
 	{
@@ -865,7 +875,17 @@ public class PocketCube
 		}
 	}
 
-
+	/**
+	 * Creates a string representing the moves that would be needed to cancel
+	 * out the given string pattern. This is the algebraic equivalent of the
+	 * inverse.
+	 * 
+	 * @param stringPattern
+	 *            Regular expression pattern to identify the moves.
+	 * @param sequence
+	 *            Moves to be canceled
+	 * @return String representing the moves that cancel out the given sequence.
+	 */
 	public String reverseSequence(String stringPattern,
 		String sequence)
 	{
@@ -918,24 +938,30 @@ public class PocketCube
 		return result;
 	}
 
+	/**
+	 * Sets the pocket cube to its original position.
+	 */
 	public void reset()
 	{
-
+		init();
 	}
 
-
+	/**
+	 * Main game loop. Prompts the user for an action, performs the action on
+	 * the pocket cube, and waits for the next action.
+	 */
 	public void gameLoop()
 	{
 		printPocket();
 
 		Scanner in = new Scanner(System.in);
 
-		String incoming = in.next();
+		String incoming = in.next().toUpperCase();
 		while (!incoming.equals("QUIT"))
 		{
 			if (incoming.equals("RESET"))
 			{
-				rubik = INITIAL;
+				reset();
 				printPocket();
 			}
 			else if (incoming.equals("SCRAMBLE"))
@@ -973,7 +999,9 @@ public class PocketCube
 		System.out.println("END!");
 		in.close();
 	}
-
+	/**
+	 * Initial configuration of the pocket cube.
+	 */
 	protected static final int[] INITIAL = { 1,
 		1,
 		2,
@@ -1000,14 +1028,29 @@ public class PocketCube
 		6
 	};
 	protected int[] rubik;
-	
+	/**
+	 * Number of cubies that form a pocket cube.
+	 */
 	protected static final int CUBIES_NUMBER = 8;
-	
+	/**
+	 * Number of bits that must be shifted to get the permutation.
+	 */
 	protected static int PERMUTATION_OFFSET = 10;
+	/**
+	 * Number of bits that must be shifted to get the orientation.
+	 */
 	protected static int ORIENTATION_OFFSET = 0;
-	protected static int ORIENTATION_MASK = 1023;
+	/**
+	 * Mask the bits of an integer that represent the permutation.
+	 */
 	protected static int PERMUTATION_MASK = 8387584;
-	
+	/**
+	 * Mask the bits of an integer that represent the orientation.
+	 */
+	protected static int ORIENTATION_MASK = 1023;
+	/**
+	 * The solved configurations in every possible orientation.
+	 */
 	protected String[] SOLVED = { "446611332255446611332255",
 			"446655113322446655113322",
 			"446622551133446622551133",
