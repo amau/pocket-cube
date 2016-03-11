@@ -52,6 +52,8 @@ public class SolutionsGenerator
 
 	public static void main(String args[])
 	{
+		int[] counter = new int[12];
+		
 		Map<String, String> positions = new HashMap<String, String>();
 		Queue<String> queue = new LinkedList<String>();
 		String pos;
@@ -109,7 +111,8 @@ public class SolutionsGenerator
 			for (String position : positions.keySet()) {
 
 				newPocket.setPosition(position);
-				output.write(newPocket.mapToInt() + " " + positions.get(position) + " " + positions.get(position).length());
+				counter[positions.get(position).length()]++;
+				output.write(newPocket.mapToInt() + "," + positions.get(position));
 				output.newLine();
 			}
 
@@ -118,6 +121,10 @@ public class SolutionsGenerator
 			e.printStackTrace();
 		}
 
+		for(int k = 0; k < counter.length; k++)
+		{
+			System.out.println(k + " : " + counter[k]);
+		}
 
 	}
 

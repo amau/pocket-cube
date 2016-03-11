@@ -17,8 +17,8 @@ public class Main
 	public static void main(String args[]) throws Exception
 	{
 		PocketCube p = new PocketCube();
-
-		
+		p.gameLoop();
+		/**
 		int test = p.mapToInt();
 		
 		
@@ -38,6 +38,8 @@ public class Main
 
 		//write2(p);
 		System.out.println("End: " +  Integer.toBinaryString(8387584));
+		
+		**/
 		/**
 		
 		int setSize = 7;
@@ -54,7 +56,7 @@ public class Main
 		
 		//write3(p);
 		
-		
+		/**
 		
 		p.scramble();
 		String before = p.toString();
@@ -66,6 +68,8 @@ public class Main
 		System.out.println(after);
 		
 		System.out.println(after.compareTo(before));
+		
+		**/
 		
 		/**
 		int total = 5040;
