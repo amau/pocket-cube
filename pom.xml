@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.agutierrez.pocket</groupId>
-	<artifactId>tsp-pocket-cube-application</artifactId>
-	<url>http://www.amaurygtz.com/pocket</url>
-	<name>Tom Sawyer Perspectives Java Tutorials Basic Application</name>
+	<artifactId>pocket-cube</artifactId>
+	<url>http://www.amaurs.com/pocket-cube</url>
+	<name>Command Line Interface Pocket Cube</name>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
 
