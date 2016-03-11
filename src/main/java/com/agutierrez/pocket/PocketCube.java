@@ -16,13 +16,17 @@ public class PocketCube
 	{
 		init();
 	}
-	
+	/**
+	 * Sets this object to the initial position.
+	 */
 	public void init()
 	{
 		rubik = INITIAL;
 	}
 
-
+	/**
+	 * Returns a string representation of the current state of the pocket cube.
+	 */
 	public String toString()
 	{
 
@@ -35,7 +39,11 @@ public class PocketCube
 		return result;
 	}
 
-
+	/**
+	 * Converts the given String into an array of ints.
+	 * @param rubik Current configuration of the cube.
+	 * @return Array with the positions casted to ints.
+	 */
 	public int[] toArray(String rubik)
 	{
 		int[] array = new int[rubik.length()];
@@ -66,17 +74,41 @@ public class PocketCube
 		return false;
 	}
 	
+	/**
+	 * Helper method that sets current and target position for this object, and
+	 * then calls the getCubieIndex method.
+	 * 
+	 * @param arr
+	 * @return
+	 */
 	public int getCubieIndex(int [] arr)
 	{
 		return getCubieIndex(arr, this.rubik, this.getTarget());
 	}
 	
-	
+	/**
+	 * Helper method that turns a string position into array and then calls the
+	 * real method.
+	 * 
+	 * @param arr
+	 * @param current
+	 * @param target
+	 * @return
+	 */
 	public int getCubieIndex(int [] arr, int[] current, String target)
 	{	
 		return getCubieIndex(arr, current, toArray(target));
 	}
 	
+	/**
+	 * Returns the index of the desired cubie comparing the current position
+	 * with the target position.
+	 * 
+	 * @param arr
+	 * @param current
+	 * @param target
+	 * @return
+	 */
 	public int getCubieIndex(int [] arr, int[] current, int[] target)
 	{
 		int[] targetArray = new int[arr.length];
@@ -108,26 +140,51 @@ public class PocketCube
 		return -1;
 	}
 	
-	public int isSameCubie(int[] current, int[] target)
-	{
-		for(int j = 0; j < current.length; j++)
-		{
-			if(current[0] == target[(0 + j) % 3] &&
-			   current[1] == target[(1 + j) % 3] &&
-			   current[2] == target[(2 + j) % 3])
-			{
+	/**
+	 * Dermines if the cubie indexes given represent the same cubie.
+	 * 
+	 * @param current
+	 *            The cubie to check.
+	 * @param target
+	 *            The cubie to check against.
+	 * @return The orientation of the current cubie compared to target; -1 in
+	 *         case it is not the same cubie.
+	 */
+	public int isSameCubie(int[] current, int[] target) {
+		for (int j = 0; j < current.length; j++) {
+			if (current[0] == target[(0 + j) % 3] && current[1] == target[(1 + j) % 3]
+					&& current[2] == target[(2 + j) % 3]) {
 				return j;
 			}
 		}
 		return -1;
 	}
-	
+
+	/**
+	 * Helper method that returns orientation for a particular cubie, setting
+	 * the current and target positions to be the ones of this particular
+	 * object.
+	 * 
+	 * @param index
+	 * @param arr
+	 * @return
+	 */
 	public int getCubieOrientation(int index, int[] arr)
 	{
 		return getCubieOrientation(index, arr, this.rubik,  toArray(this.getTarget()));
 	}
 	
-	
+	/**
+	 * Given a target position, the current position, a particular cubie, and a
+	 * target cubie, this method returns the orientation for that particular
+	 * cubie.
+	 * 
+	 * @param index
+	 * @param arr
+	 * @param current
+	 * @param target
+	 * @return
+	 */
 	public int getCubieOrientation(int index, int[] arr, int[] current, int[] target)
 	{
 		int[] targetArray = new int[arr.length];
@@ -146,7 +203,12 @@ public class PocketCube
 		
 	}
 	
-	
+	/**
+	 * Maps the current configurations of this object to an int. In particular,
+	 * we need 23 bits to store the information for the cube's position.
+	 * 
+	 * @return Int that represents the current configuration.
+	 */
 	public int mapToInt()
 	{
 		int permutation;
@@ -170,6 +232,19 @@ public class PocketCube
 		return result;
 	}
 	
+	/**
+	 * Converts a mapped int into the accordingly string representation for a
+	 * particular configuration. The target is used as reference to get the
+	 * final configuration desired.
+	 * 
+	 * @param position
+	 *            An int representing a position for the cube.
+	 * @param target
+	 *            A fixed configuration to be attained.
+	 * @return The string representing the configuration equivalent to the given
+	 *         integer.
+	 * @throws Exception
+	 */
 	public String mapFromInt(int position, String target) throws Exception 
 	{
 		int orientation = (PocketCube.ORIENTATION_MASK & position) >> PocketCube.ORIENTATION_OFFSET;
@@ -209,6 +284,16 @@ public class PocketCube
 		return result;
 	}
 	
+	/**
+	 * Maps the integers for permutation (0-5039) and orientation (0-728) into
+	 * an array of three bytes.
+	 * 
+	 * @param permutation
+	 *            Int representing a permutation for 7 elements.
+	 * @param orientation
+	 *            Int representing an orientation for 6 cubies.
+	 * @return An array containing the three byte mapping.
+	 */
 	public byte[] mapToByteArray(int permutation, int orientation)
 	{
 		byte[] result = new byte[3];
@@ -221,21 +306,40 @@ public class PocketCube
 		return result;
 	}
 	
+	/**
+	 * Convenient method that fixes the upper back left cubie.
+	 * 
+	 * @return The target configuration using this particular cubie as pivot.
+	 */
 	public String getTarget()
 	{
 		return getTarget(PocketCubeConstants.UBL_INDEXES, this.toString());
 	}
 
-	public String getTarget(int[] arr, String current)
+	/**
+	 * Using the given cubie's indexes, this method looks for the target
+	 * solution for this particular configuration. We are fixing the pocket cube
+	 * to one of 24 different spatial configurations. When we do this we
+	 * constrain the space of possible configurations to 7!*3^6.
+	 * 
+	 * @param cubie
+	 *            Array with the indexes of the cubie to be fixed.
+	 * @param current
+	 *            A string representing the current configuration of the pocket
+	 *            cube.
+	 * @return A string representing the target configuration of the pocket
+	 *         cube.
+	 */
+	public String getTarget(int[] cubie, String current)
 	{	
 		for (int i = 0; i < SOLVED.length; i++)
 		{
 			String target = "";
 			String currentString = "";
-			for(int j = 0; j < arr.length; j++)
+			for(int j = 0; j < cubie.length; j++)
 			{
-				target = target + SOLVED[i].charAt(arr[j]);
-				currentString = currentString + current.charAt(arr[j]);
+				target = target + SOLVED[i].charAt(cubie[j]);
+				currentString = currentString + current.charAt(cubie[j]);
 			}
 			if(target.compareTo(currentString) == 0)
 			{
