@@ -351,6 +351,14 @@ public class Util {
 		return result;
 	}
 	
+	/**
+	 * Given an index, and the number of elements in the set (from 0 to n) it
+	 * returns a String representing the nth permutation.
+	 * 
+	 * @param index
+	 * @param size
+	 * @return
+	 */
 	public static String getNthPermutationString(int index, int size)
 	{
 		int factoradic = toFactoradic(index);
@@ -376,7 +384,15 @@ public class Util {
 		}		
 		return result;
 	}
-	
+
+	/**
+	 * Given an array containing a permutation of numbers, it returns the index
+	 * of the permutation given by the Lehmer code.
+	 * 
+	 * @param permutation
+	 *            Array containing a permutation of numbers from 1-n.
+	 * @return The index of the given permutation in the Lehmer code.
+	 */
 	public static int getPermutationIndex(int[] permutation)
 	{
 		int[] aux = new int[permutation.length];
@@ -413,7 +429,18 @@ public class Util {
 		
 		return res;
 	}
-	
+
+	/**
+	 * Determines the orientation of a given string that represents a number in
+	 * the given radix base. The sum of all orientations should always be 0
+	 * modulus the radix number.
+	 * 
+	 * @param orientation
+	 *            String representing orientation of n-1 elements.
+	 * @param radix
+	 *            The desired base.
+	 * @return The orientation of the nth element in order to keep the zero sum.
+	 */
 	public static String getremainingOrientation(String orientation, int radix)
 	{
 		int count = 0;
